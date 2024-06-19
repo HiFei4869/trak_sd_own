@@ -152,3 +152,5 @@ for i in range(N):
 
     # Save the plot instead of showing it
     output_image_count += 1
+    save_image(fig, output_image_count)
+    print('saving figure:', output_image_count)
