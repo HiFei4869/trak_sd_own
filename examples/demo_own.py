@@ -92,40 +92,40 @@ scores = {
     500: np.array(open_memmap('./MSCOCO_trak_results/scores/DEMO_T=500.mmap'))
 }
 
-scores = {}  # dictionary {timestep: scores_for_that_timestep}
-t = 100
-exp_name = f"DEMO_T={t}"
-num_resamplings = 20
+# scores = {}  # dictionary {timestep: scores_for_that_timestep}
+# t = 100
+# exp_name = f"DEMO_T={t}"
+# num_resamplings = 20
 
-timestep = torch.tensor(t)
-bs = trajectory.shape[1]
+# timestep = torch.tensor(t)
+# bs = trajectory.shape[1]
 
-for model_id in tqdm(range(len(checkpoints))):
-    ckpt = checkpoints[model_id]
-    traker.start_scoring_checkpoint(exp_name=exp_name, checkpoint=ckpt, model_id=model_id, num_targets=bs)
+# for model_id in tqdm(range(len(checkpoints))):
+#     ckpt = checkpoints[model_id]
+#     traker.start_scoring_checkpoint(exp_name=exp_name, checkpoint=ckpt, model_id=model_id, num_targets=bs)
 
-    # images, labels, tstep, n_iters
-    batch = [trajectory.permute([1, 0, 2, 3, 4]).half(), states, timestep, num_resamplings]
-    traker.score(batch=batch, num_samples=bs)
+#     # images, labels, tstep, n_iters
+#     batch = [trajectory.permute([1, 0, 2, 3, 4]).half(), states, timestep, num_resamplings]
+#     traker.score(batch=batch, num_samples=bs)
 
-scores[t] = traker.finalize_scores(exp_name=exp_name, allow_skip=True)
+# scores[t] = traker.finalize_scores(exp_name=exp_name, allow_skip=True)
 
-t = 500
-exp_name = f"DEMO_T={t}"
-num_resamplings = 20
+# t = 500
+# exp_name = f"DEMO_T={t}"
+# num_resamplings = 20
 
-timestep = torch.tensor(t)
-bs = trajectory.shape[1]
+# timestep = torch.tensor(t)
+# bs = trajectory.shape[1]
 
-for model_id in tqdm(range(len(checkpoints))):
-    ckpt = checkpoints[model_id]
-    traker.start_scoring_checkpoint(exp_name=exp_name, checkpoint=ckpt, model_id=model_id, num_targets=bs)
+# for model_id in tqdm(range(len(checkpoints))):
+#     ckpt = checkpoints[model_id]
+#     traker.start_scoring_checkpoint(exp_name=exp_name, checkpoint=ckpt, model_id=model_id, num_targets=bs)
 
-    # images, labels, tstep, n_iters
-    batch = [trajectory.permute([1, 0, 2, 3, 4]).half(), states, timestep, num_resamplings]
-    traker.score(batch=batch, num_samples=bs)
+#     # images, labels, tstep, n_iters
+#     batch = [trajectory.permute([1, 0, 2, 3, 4]).half(), states, timestep, num_resamplings]
+#     traker.score(batch=batch, num_samples=bs)
 
-scores[t] = traker.finalize_scores(exp_name=exp_name, allow_skip=True)
+# scores[t] = traker.finalize_scores(exp_name=exp_name, allow_skip=True)
 
 k = 4  # visualize the k training examples with most positive/negative TRAK scores
 T = len(list(scores.keys()))
